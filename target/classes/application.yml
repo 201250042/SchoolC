@@ -4,10 +4,7 @@ spring:
   datasource:
     # jdbc 连接基础配置
     username: root
-    password: 20020515ztzx
-    #使用的 mysql 版本为：Server version: 5.6.11 MySQL Community Server (GPL)
-    #mysql 驱动版本：mysql-connector-java-8.0.16.jar
-    #高版本 Mysql 驱动时，配置的 driver-class-name 不再是 com.mysql.jdbc.Driver，url 后面必须设置时区 serverTimezone
+    password: “你的密码”
     url: jdbc:mysql://127.0.0.1:3306/schoolc?characterEncoding=UTF-8&serverTimezone=UTC
     driver-class-name: com.mysql.cj.jdbc.Driver
   mvc:
