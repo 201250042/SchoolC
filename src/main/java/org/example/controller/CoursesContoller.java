@@ -8,16 +8,13 @@ import java.io.Serializable;
 import org.example.mapper.CoursesMapper;
 import org.example.pojo.Courses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "课程接口")
 @CrossOrigin("*")
 @SuppressWarnings("all")
 @RestController
+@RequestMapping("c")
 public class CoursesContoller {
   XStream xStream = new XStream(new StaxDriver());
 //  Gson gson = new Gson();
