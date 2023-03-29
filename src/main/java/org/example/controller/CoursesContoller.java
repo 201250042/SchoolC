@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin("*")
 @SuppressWarnings("all")
 @RestController
-@RequestMapping("c")
 public class CoursesContoller {
   XStream xStream = new XStream(new StaxDriver());
 //  Gson gson = new Gson();
