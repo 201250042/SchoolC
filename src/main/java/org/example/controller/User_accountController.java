@@ -64,7 +64,7 @@ public class User_accountController {
     QueryWrapper<User_account> userQueryWrapper = new QueryWrapper<>();
     userQueryWrapper.setEntity(user_account);
     if (user_accountMapper.selectOne(userQueryWrapper) == null) {
-      return "error:查询不到用户信息，请先注册！";
+      return null; //"error:查询不到用户信息，请先注册！"
     }
     String token = TokenUtil.getToken(user_account.getAcc());
     HashMap<String, String> res = new HashMap<>();
