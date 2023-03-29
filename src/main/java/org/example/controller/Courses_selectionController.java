@@ -27,8 +27,9 @@ public class Courses_selectionController {
     return xStream.toXML(courses_selectionMapper.findAllCoursesSelectionTable());
   }
 
-  @PostMapping("/courses_selection/add")
-  public void addCoursesSelectionTable(@RequestBody String courses_selectionXml){
+  @GetMapping("/courses_selection/add")
+  public void addCoursesSelectionTable(@RequestParam String courses_selectionXml){
+    System.out.println("frontend return: " + courses_selectionXml);
     xStream.processAnnotations(Courses_selection.class);
     Courses_selection courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
     courses_selectionMapper.insert(courses_selection);

@@ -10,11 +10,7 @@ import org.example.mapper.User_accountMapper;
 import org.example.pojo.User_account;
 import org.example.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "用户账户接口")
 @CrossOrigin("*")
@@ -61,8 +57,8 @@ public class User_accountController {
 
 
   // 登录
-  @PostMapping("/login")
-  public String login(@RequestBody String user_accountXml) {
+  @GetMapping("/login")
+  public String login(@RequestParam String user_accountXml) {
     xStream.processAnnotations(User_account.class);
     User_account user_account = (User_account) xStream.fromXML(user_accountXml);
     QueryWrapper<User_account> userQueryWrapper = new QueryWrapper<>();
