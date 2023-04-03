@@ -7,9 +7,13 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import io.swagger.annotations.Api;
 import org.example.mapper.Courses_selectionMapper;
+import org.example.pojo.Courses;
 import org.example.pojo.Courses_selection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Api(tags = "选课表接口")
 @CrossOrigin("*")
@@ -20,6 +24,9 @@ public class Courses_selectionController {
 //  Gson gson = new Gson();
   @Autowired
   private Courses_selectionMapper courses_selectionMapper;
+
+  @Autowired
+  CoursesContoller tempCourseController;
 
   @GetMapping("/courses_selection")
   public String getAllCoursesSelectionTable(){
@@ -53,7 +60,18 @@ public class Courses_selectionController {
   public String searchBySno(@RequestParam String courses_selectionXml){
     xStream.processAnnotations(Courses_selection.class);
     Courses_selection  courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
-    return xStream.toXML(courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno()));
+
+    List<Courses_selection> coursesSelectionList = courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno());
+//    System.out.println(coursesSelectionList);
+    List<Courses> coursesList = new ArrayList<>();
+    for (Courses_selection cs : coursesSelectionList) {
+      System.out.println(cs);
+      String currCno = cs.getCno();
+      coursesList.add(tempCourseController.searchByCno2(currCno));
+    }
+    xStream.processAnnotations(Courses.class);
+    return xStream.toXML(coursesList);
+//    return xStream.toXML(courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno()));
   }
 
 }

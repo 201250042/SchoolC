@@ -6,6 +6,7 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 import io.swagger.annotations.Api;
 import java.io.Serializable;
 import org.example.mapper.CoursesMapper;
+import org.example.mapper.Courses_selectionMapper;
 import org.example.pojo.Courses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -52,6 +53,10 @@ public class CoursesContoller {
     xStream.processAnnotations(Courses.class);
     Courses course = (Courses) xStream.fromXML(courseXml);
     return xStream.toXML(coursesMapper.findByCno(course.getCno()));
+  }
+
+  public Courses searchByCno2(String cno){
+    return coursesMapper.findByCno(cno);
   }
 
   @PostMapping("/courses/sendSharedCourse")
