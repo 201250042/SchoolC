@@ -13,4 +13,7 @@ public interface Courses_selectionMapper extends BaseMapper<Courses_selection> {
 
   @Delete("delete from courses_selection where cno = ${cno} and sno = ${sno}")
   public void deleteByCnoSno(@Param("cno") String cno,@Param("sno") String sno);
+
+  @Select("select * from courses_selection where sno = ${sno}")
+  public List<Courses_selection> findCoursesSelectionBySno(@Param("sno") String sno);
 }

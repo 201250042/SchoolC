@@ -49,4 +49,11 @@ public class Courses_selectionController {
     courses_selectionMapper.updateById(courses_selection);
   }
 
+  @GetMapping("/courses_selection/searchBySno")
+  public String searchBySno(@RequestParam String courses_selectionXml){
+    xStream.processAnnotations(Courses_selection.class);
+    Courses_selection  courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
+    return xStream.toXML(courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno()));
+  }
+
 }
