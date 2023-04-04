@@ -27,22 +27,22 @@ public class CoursesContoller {
     return xStream.toXML(coursesMapper.findAllCourses());
   }
 
-  @PostMapping("/courses/add")
-  public void addCourse(@RequestBody String courseXml){
+  @GetMapping("/courses/add")
+  public void addCourse(@RequestParam String courseXml){
     xStream.processAnnotations(Courses.class);
     Courses course = (Courses) xStream.fromXML(courseXml);
     coursesMapper.insert(course);
   }
 
-  @PostMapping("/courses/delete")
-  public void deleteCourse(@RequestBody String courseXml){
+  @GetMapping("/courses/delete")
+  public void deleteCourse(@RequestParam String courseXml){
     xStream.processAnnotations(Courses.class);
     Courses course = (Courses) xStream.fromXML(courseXml);
     coursesMapper.deleteById(course);
   }
 
-  @PostMapping("/courses/update")
-  public void updateCourse(@RequestBody String courseXml){
+  @GetMapping("/courses/update")
+  public void updateCourse(@RequestParam String courseXml){
     xStream.processAnnotations(Courses.class);
     Courses course = (Courses) xStream.fromXML(courseXml);
     coursesMapper.updateById(course);
@@ -59,8 +59,8 @@ public class CoursesContoller {
     return coursesMapper.findByCno(cno);
   }
 
-  @PostMapping("/courses/sendSharedCourse")
-  public String sendSharedCourse(@RequestBody String courseXml){
+  @GetMapping("/courses/sendSharedCourse")
+  public String sendSharedCourse(@RequestParam String courseXml){
     xStream.processAnnotations(Courses.class);
     Courses sharedCourse = (Courses) xStream.fromXML(courseXml);
     sharedCourse.setShare("1");
@@ -68,8 +68,8 @@ public class CoursesContoller {
     return xStream.toXML(coursesMapper.findByCno(sharedCourse.getCno()));
   }
 
-  @PostMapping("/courses/receiveSharedCourse")
-  public void receiveSharedCourse(@RequestBody String courseXml){
+  @GetMapping("/courses/receiveSharedCourse")
+  public void receiveSharedCourse(@RequestParam String courseXml){
     addCourse(courseXml);
   }
 

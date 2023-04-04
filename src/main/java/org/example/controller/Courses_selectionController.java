@@ -44,7 +44,6 @@ public class Courses_selectionController {
     xStream.processAnnotations(Courses_selection.class);
     Courses_selection courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
     if(!courses_selection.getCno().startsWith("30")){
-      List<String> trans = new ArrayList<>();
       //传当前学生和选课信息给集成端
       //选课信息已有，学生信息通过sno查询
       //学生信息通过sno查询(在studentsController添加查询方法)
@@ -56,10 +55,6 @@ public class Courses_selectionController {
       }else{
         transTo = "b";
       }
-      trans.add(studentXml);
-      trans.add(courses_selectionXml);
-      trans.add(curr);
-      trans.add(transTo);
       String url = "http://localhost:8081/integration/httpTest/?studentXml={value}&courses_selectionXml={value}&curr={value}&transTo={value}";
       String response = restTemplate.getForObject(url,String.class,studentXml,courses_selection,curr,transTo);
 //      System.out.println("RESPONSE: "+response);
@@ -70,15 +65,15 @@ public class Courses_selectionController {
     }
   }
 
-  @PostMapping("/courses_selection/delete")
-  public void deleteCoursesSelectionTable(@RequestBody String courses_selectionXml){
+  @GetMapping("/courses_selection/delete")
+  public void deleteCoursesSelectionTable(@RequestParam String courses_selectionXml){
     xStream.processAnnotations(Courses_selection.class);
     Courses_selection courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
     courses_selectionMapper.deleteByCnoSno(courses_selection.getCno(),courses_selection.getSno());
   }
 
-  @PostMapping("/courses_selection/update")
-  public void updateCoursesSelectionTable(@RequestBody String courses_selectionXml){
+  @GetMapping("/courses_selection/update")
+  public void updateCoursesSelectionTable(@RequestParam String courses_selectionXml){
     xStream.processAnnotations(Courses_selection.class);
     Courses_selection courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
     courses_selectionMapper.updateById(courses_selection);
