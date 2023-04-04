@@ -51,7 +51,9 @@ public class StudentsController {
   public void addStudent(@RequestParam String studentXml) {
     xStream.processAnnotations(Students.class);
     Students student = (Students) xStream.fromXML(studentXml);
-    studentsMapper.insert(student);
+    if(!studentsMapper.checkStudentExists(student.getSno())){
+      studentsMapper.insert(student);
+    }
   }
 
   // 删除学生
