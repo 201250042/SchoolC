@@ -56,7 +56,7 @@ public class Courses_selectionController {
         transTo = "b";
       }
       String url = "http://localhost:8081/integration/httpTest/?studentXml={value}&courses_selectionXml={value}&curr={value}&transTo={value}";
-      String response = restTemplate.getForObject(url,String.class,studentXml,courses_selection,curr,transTo);
+      String response = restTemplate.getForObject(url,String.class,studentXml,courses_selectionXml,curr,transTo);
 //      System.out.println("RESPONSE: "+response);
 //      return trans;
     }else{
