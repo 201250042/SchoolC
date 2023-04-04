@@ -84,20 +84,28 @@ public class Courses_selectionController {
     courses_selectionMapper.updateById(courses_selection);
   }
 
-  @GetMapping("/courses_selection/searchBySno")
+//  @GetMapping("/courses_selection/searchBySno")
+//  public String searchBySno(@RequestParam String courses_selectionXml){
+//    xStream.processAnnotations(Courses_selection.class);
+//    Courses_selection  courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
+//
+//    List<Courses_selection> coursesSelectionList = courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno());
+//    List<Courses> coursesList = new ArrayList<>();
+//    for (Courses_selection cs : coursesSelectionList) {
+//      String currCno = cs.getCno();
+//      coursesList.add(tempCourseController.searchByCno2(currCno));
+//    }
+//    xStream.processAnnotations(Courses.class);
+//    return xStream.toXML(coursesList);
+////    return xStream.toXML(courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno()));
+//  }
+
+  @GetMapping("/courses_selectionarchBySno")
   public String searchBySno(@RequestParam String courses_selectionXml){
     xStream.processAnnotations(Courses_selection.class);
     Courses_selection  courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
+    return xStream.toXML(courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno()));
 
-    List<Courses_selection> coursesSelectionList = courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno());
-    List<Courses> coursesList = new ArrayList<>();
-    for (Courses_selection cs : coursesSelectionList) {
-      String currCno = cs.getCno();
-      coursesList.add(tempCourseController.searchByCno2(currCno));
-    }
-    xStream.processAnnotations(Courses.class);
-    return xStream.toXML(coursesList);
-//    return xStream.toXML(courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno()));
   }
 
 //  @GetMapping("/courses_selection/searchBySno")
