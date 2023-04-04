@@ -10,11 +10,7 @@ import java.util.List;
 import org.example.mapper.StudentsMapper;
 import org.example.pojo.Students;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(tags = "学生信息接口")
 @CrossOrigin("*")
@@ -87,4 +83,9 @@ public class StudentsController {
     return xStream.toXML(students);
   }
 
+//  @GetMapping("/students/searchBySno")
+  public String searchStudentBySno(String cno){
+    xStream.processAnnotations(Students.class);
+    return xStream.toXML(studentsMapper.selectById(cno));
+  }
 }
