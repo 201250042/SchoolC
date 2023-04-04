@@ -47,16 +47,16 @@ public class StudentsController {
   }
 
   // 添加学生
-  @PostMapping("/students/add")
-  public void addStudent(@RequestBody String studentXml) {
+  @GetMapping("/students/add")
+  public void addStudent(@RequestParam String studentXml) {
     xStream.processAnnotations(Students.class);
     Students student = (Students) xStream.fromXML(studentXml);
     studentsMapper.insert(student);
   }
 
   // 删除学生
-  @PostMapping("/students/delete")
-  public void deleteStudent(@RequestBody String studentXml) {
+  @GetMapping("/students/delete")
+  public void deleteStudent(@RequestParam String studentXml) {
     xStream.processAnnotations(Students.class);
     Students student = (Students) xStream.fromXML(studentXml);
     studentsMapper.deleteById(student);
@@ -64,16 +64,16 @@ public class StudentsController {
   }
 
   // 修改学生信息
-  @PostMapping("/students/update")
-  public void updateStudent(@RequestBody String studentXml) {
+  @GetMapping("/students/update")
+  public void updateStudent(@RequestParam String studentXml) {
     xStream.processAnnotations(Students.class);
     Students student = (Students) xStream.fromXML(studentXml);
     studentsMapper.updateById(student);
   }
 
   // 根据姓名模糊查询学生
-  @PostMapping("/students/searchByName")
-  public String searchStudent(@RequestBody String studentXml) {
+  @GetMapping("/students/searchByName")
+  public String searchStudent(@RequestParam String studentXml) {
     xStream.processAnnotations(Students.class);
     Students student = (Students) xStream.fromXML(studentXml);
     String snm = student.getSnm();
