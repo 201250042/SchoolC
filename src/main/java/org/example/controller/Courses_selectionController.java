@@ -69,7 +69,27 @@ public class Courses_selectionController {
   public void deleteCoursesSelectionTable(@RequestParam String courses_selectionXml){
     xStream.processAnnotations(Courses_selection.class);
     Courses_selection courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
-    courses_selectionMapper.deleteByCnoSno(courses_selection.getCno(),courses_selection.getSno());
+    String studentXml = tempStudentsController.searchStudentBySno(courses_selection.getSno());
+    if(!courses_selection.getCno().startsWith("30")){
+//      String studentXml = tempStudentsController.searchStudentBySno(courses_selection.getSno());
+      String curr = "c";
+      String transTo;
+      if(courses_selection.getCno().startsWith("10")){
+        transTo = "a";
+      }else{
+        transTo = "b";
+      }
+      String url = "http://localhost:8081/integration/httpTestDelete/?studentXml={value}&courses_selectionXml={value}&curr={value}&transTo={value}";
+      String response = restTemplate.getForObject(url,String.class,studentXml,courses_selectionXml,curr,transTo);
+    }else {
+      courses_selectionMapper.deleteByCnoSno(courses_selection.getCno(),courses_selection.getSno());
+      if(!courses_selection.getSno().startsWith("30")){
+        if(!courses_selectionMapper.checkCSTableExists(courses_selection.getSno())){
+          tempStudentsController.deleteStudent(studentXml);
+        }
+      }
+    }
+
   }
 
   @GetMapping("/courses_selection/update")
@@ -102,14 +122,5 @@ public class Courses_selectionController {
     return xStream.toXML(courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno()));
 
   }
-
-//  @GetMapping("/courses_selection/searchBySno")
-//  public String searchBySno(@RequestParam String courses_selectionXml){
-//    xStream.processAnnotations(Courses_selection.class);
-//    Courses_selection  courses_selection = (Courses_selection) xStream.fromXML(courses_selectionXml);
-//    return xStream.toXML(courses_selectionMapper.findCoursesSelectionBySno(courses_selection.getSno()));
-//
-//  }
-
 
 }

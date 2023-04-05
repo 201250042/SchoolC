@@ -14,4 +14,5 @@ public interface StudentsMapper extends BaseMapper<Students> {
   @Select("SELECT EXISTS(SELECT 1 FROM students WHERE sno=#{sno})")
   boolean checkStudentExists(@Param("sno") String sno);
 
+
 }
