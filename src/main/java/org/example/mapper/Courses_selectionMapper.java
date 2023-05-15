@@ -19,4 +19,7 @@ public interface Courses_selectionMapper extends BaseMapper<Courses_selection> {
 
   @Select("SELECT EXISTS(SELECT 1 FROM courses_selection WHERE sno=#{sno})")
   boolean checkCSTableExists(@Param("sno") String sno);
+
+  @Select("select * from courses_selection where cno = ${cno}")
+  public List<Courses_selection> findCoursesSelectionByCno(@Param("cno") String cno);
 }

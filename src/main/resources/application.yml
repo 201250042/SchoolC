@@ -4,7 +4,7 @@ spring:
   datasource:
     # jdbc 连接基础配置
     username: root
-    password:
+    password: 20020515ztzx
     #你的密码
     #你的数据库url
     url: jdbc:mysql://127.0.0.1:3306/schoolc?characterEncoding=UTF-8&serverTimezone=UTC

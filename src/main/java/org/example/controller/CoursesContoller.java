@@ -5,6 +5,9 @@ import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 import io.swagger.annotations.Api;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.mapper.CoursesMapper;
 import org.example.mapper.Courses_selectionMapper;
 import org.example.pojo.Courses;
@@ -73,4 +76,23 @@ public class CoursesContoller {
     addCourse(courseXml);
   }
 
+  @GetMapping("/courses/getCreditDistribution")
+  public List getCreditDistribution(){
+    List<Integer> res = new ArrayList<>();//学分设置为3、4、5之一，res[0]为3学分课程数,res[1]为4,res[2]为5
+    res.add(0);
+    res.add(0);
+    res.add(0);
+    List<Courses> coursesList = coursesMapper.findAllCourses();
+    for (Courses course : coursesList) {
+      String tempCredit = String.valueOf(course.getCpt());
+      if(tempCredit.equals("3")){
+        res.set(0,res.get(0)+1);
+      }else if(tempCredit.equals("4")){
+        res.set(1,res.get(1)+1);
+      }else if(tempCredit.equals("5")){
+        res.set(2,res.get(2)+1);
+      }
+    }
+    return res;
+  }
 }
