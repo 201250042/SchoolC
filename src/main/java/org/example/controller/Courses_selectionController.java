@@ -124,7 +124,7 @@ public class Courses_selectionController {
 
   }
   @GetMapping("/courses_selection/getStudentDistribution")
-  public List getStudentDistribution(@RequestBody String cno){
+  public List getStudentDistribution(@RequestParam String cno){
     List<Integer> res = new ArrayList<>();//res[0]为A学院学生数,res[1]为B学院,res[2]为C学院
     res.add(0);
     res.add(0);
@@ -146,7 +146,7 @@ public class Courses_selectionController {
 
 
   @GetMapping("/courses_selection/getGradeDistribution")
-  public List getGradeDistribution(@RequestBody String cno){
+  public List getGradeDistribution(@RequestParam String cno){
     List<Integer> res = new ArrayList<>();//成绩设置3段，【0，60），【60，90），【90，100】，res[0]为【0，60）,res[1]为【60，90）,res[2]为【90，100】
     res.add(0);
     res.add(0);
