@@ -18,7 +18,8 @@ import java.util.List;
 @SuppressWarnings("all")
 @RestController
 public class Courses_selectionController {
-  String intergrationUrl = "192.168.43.195:8081";
+//  String intergrationUrl = "192.168.43.195:8081";
+  String intergrationUrl = "localhost:8081";
   XStream xStream = new XStream(new StaxDriver());
 //  Gson gson = new Gson();
   @Autowired
